@@ -14,8 +14,11 @@ namespace Karuta___wersja_anime
         public string path;
         public List<Anime> animeList;
         public Methods methods = new Methods();
+        public TextBox AnimeListBox;
+        public CheckedListBox checkedListBox1;
+        public TextBox AnimeInfoBox;
 
-        public void WorkerStart(BackgroundWorker backgroundWorker, ToolStripProgressBar progressBar, ToolStripLabel label, string path, List<Anime> animeList)
+        public void WorkerStart(BackgroundWorker backgroundWorker, ToolStripProgressBar progressBar, ToolStripLabel label, string path, List<Anime> animeList, TextBox AnimeListBox, CheckedListBox checkedListBox1, TextBox AnimeInfoBox)
         {
             methods.Logger("Inicjacja workera", null);
             this.backgroundWorker = backgroundWorker;
@@ -23,6 +26,9 @@ namespace Karuta___wersja_anime
             this.label = label;
             this.path = path;
             this.animeList = animeList;
+            this.AnimeListBox = AnimeListBox;
+            this.checkedListBox1 = checkedListBox1;
+            this.AnimeInfoBox = AnimeInfoBox;
 
             this.label.Text = "Zajęty...";
             string[] files = Directory.GetFiles(this.path, "*.mp3", SearchOption.AllDirectories);
@@ -64,6 +70,9 @@ namespace Karuta___wersja_anime
         public void WorkerEnd(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             progressBar.Value = 0;
+            AnimeListBox.Enabled = true;
+            checkedListBox1.Enabled = true;
+            AnimeInfoBox.Enabled = true;
             methods.Logger("Worker zakończył pracę", label.Text);
             label.Text += " Koniec";
         }

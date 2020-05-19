@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace Karuta___wersja_anime
@@ -33,7 +34,7 @@ namespace Karuta___wersja_anime
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
                     methods.Logger("Wybrano folder", fbd.SelectedPath);
-                    worker.WorkerStart(backgroundWorker, toolStripProgressBar1, toolStripStatusLabel1, fbd.SelectedPath, animeList);
+                    worker.WorkerStart(backgroundWorker, toolStripProgressBar1, toolStripStatusLabel1, fbd.SelectedPath, animeList, AnimeListBox, checkedListBox1, AnimeInfoBox);
                 }
             }
         }
@@ -103,7 +104,29 @@ namespace Karuta___wersja_anime
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
-            GameWindow gameWindow = new GameWindow();
+            Dictionary<string, bool> settings = new Dictionary<string, bool>
+            {
+                { "Opening", SettingsOP.Checked ? true : false },
+                { "Ending", SettingsED.Checked ? true : false },
+                { "Insert", SettingsIN.Checked ? true : false },
+                { "FromStart", SettingsFromStart.Checked ? true : SettingsRandom.Checked ? false : true }
+            };
+
+            int[] cardList = Array.ConvertAll(AnimeListBox.Text.Split(',').Where(x => !string.IsNullOrEmpty(x)).ToArray(), s => int.Parse(s));
+
+            List<string> players = new List<string>();
+            if (PlayerName1.Text != "") { players.Add(PlayerName1.Text); }
+            if (PlayerName2.Text != "") { players.Add(PlayerName2.Text); }
+            if (PlayerName3.Text != "") { players.Add(PlayerName3.Text); }
+            if (PlayerName4.Text != "") { players.Add(PlayerName4.Text); }
+            if (PlayerName5.Text != "") { players.Add(PlayerName5.Text); }
+            if (PlayerName6.Text != "") { players.Add(PlayerName6.Text); }
+
+            Game game = new Game(animeList, cardList, settings, players);
+
+            this.Hide();
+            GameWindow gameWindow = new GameWindow(game);
+            gameWindow.Closed += (s, args) => this.Close();
             gameWindow.Show();
         }
 

@@ -1,4 +1,6 @@
-﻿namespace Karuta___wersja_anime
+﻿using System;
+
+namespace Karuta___wersja_anime
 {
     public class Song
     {
@@ -13,6 +15,7 @@
         public TagLib.IPicture Cover { get; set; }
         public System.TimeSpan Duration { get; set; }
         public int Bitrate { get; set; }
+
         public void GetSongTags()
         {
             var tfile = TagLib.File.Create(Path);

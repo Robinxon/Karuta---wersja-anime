@@ -157,6 +157,7 @@
             // 
             // AnimeListBox
             // 
+            this.AnimeListBox.Enabled = false;
             this.AnimeListBox.Location = new System.Drawing.Point(12, 49);
             this.AnimeListBox.Name = "AnimeListBox";
             this.AnimeListBox.Size = new System.Drawing.Size(600, 20);
@@ -175,6 +176,7 @@
             // checkedListBox1
             // 
             this.checkedListBox1.ColumnWidth = 300;
+            this.checkedListBox1.Enabled = false;
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(12, 88);
             this.checkedListBox1.MultiColumn = true;
@@ -194,6 +196,7 @@
             // 
             // AnimeInfoBox
             // 
+            this.AnimeInfoBox.Enabled = false;
             this.AnimeInfoBox.Location = new System.Drawing.Point(15, 456);
             this.AnimeInfoBox.Multiline = true;
             this.AnimeInfoBox.Name = "AnimeInfoBox";
